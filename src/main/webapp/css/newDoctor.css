@@ -1,0 +1,25 @@
+
+/* 
+    Created on : 3/06/2026, 9:16:41 p. m.
+    Author     : ubadel
+*/
+
+
+#tittle {
+    width: 120%;
+    color: #614ae1;
+    font-size: 26pt;
+}
+
+#text {
+    width: 120%;
+    padding-left: 5%;
+    font-family:sans-serif;
+    color: Black;
+}
+
+.img-card {
+    margin-top: 40px;
+}
+
+

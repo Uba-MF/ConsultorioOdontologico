@@ -1,0 +1,26 @@
+
+/* 
+    Created on : 3/06/2026, 9:16:41 p. m.
+    Author     : ubadel
+*/
+
+#tittle-user {
+    width: 85%;
+    color: #614ae1;
+    font-size: 26pt;
+    margin-top: 15%;
+    margin-left: 140%;
+}
+
+
+.img-card {
+   position: relative;
+   top: -15%;
+   left: 10%;
+}
+
+.user {
+    margin-top: 20%;
+    margin-left: 10%;
+}
+
