@@ -5,6 +5,9 @@
 
 <%@include file="components/header.jsp" %>
 <%@include file="components/body.jsp" %>
+<%@include  file="components/successMessage.jsp" %>
+<%@include file="components/errorMessage.jsp" %>
+
 <link href="css/newDoctor.css" rel="stylesheet"> 
 
 <body class="bg-gradient-primary">
@@ -38,7 +41,7 @@
                                     
                                     <div class="col-sm-12 mb-3">
                                         <input type="text" class="form-control form-control-user" name="dni"
-                                               placeholder="DNI" value="<%=odonto.getDni()%>" >
+                                               placeholder="DNI" value="<%=odonto.getDni()%>" disabled>
                                     </div>
                                     
                                     <div class="col-sm-12 mb-3">
@@ -80,9 +83,11 @@
                                     
                                 </div>
                                
-                                
-                                <button class="btn btn-primary btn-user" type="submit" style="margin-left: 40%">
-                                    <b>Guardar cambios</b>
+                                 <a href="seeDoctor.jsp" class="btn btn-danger btn-user" type="submit" style="margin-left: 35%; width: 17%">
+                                    <b> Volver </b>
+                                </a> 
+                                <button class="btn btn-primary btn-user" type="submit">
+                                    <b>Guardar</b>
                                 </button>
 
                                 

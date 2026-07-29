@@ -46,9 +46,9 @@ public class SvEditOdonto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
          // Se almacenan los cambios que se hagan en el formulario en variables auxiliares
-        
-         String dniOdon = request.getParameter("dni");
+
          String nameOdon = request.getParameter("nombre");
          String lastNameOdon = request.getParameter("apellido");
          String numberPhoneOdon = request.getParameter("telefono");
@@ -61,7 +61,6 @@ public class SvEditOdonto extends HttpServlet {
          Date fecha = java.sql.Date.valueOf(localDate);
          
          Odontologo odonto = (Odontologo)  request.getSession().getAttribute("odontoEditar");
-         odonto.setDni(dniOdon);
          odonto.setNombre(nameOdon);
          odonto.setApellido(lastNameOdon);
          odonto.setTelefono(numberPhoneOdon);
@@ -70,7 +69,16 @@ public class SvEditOdonto extends HttpServlet {
          odonto.setFecha_nac(fecha);
          odonto.setEspecialidad(especialityOdon);
          
-         control.editOdonto(odonto);
+  
+         try {
+             control.editOdonto(odonto);
+             session.setAttribute("mensaje", " -----> ¡Datos actualizados correctamente!");
+             session.setAttribute("tipoMensaje", "success");
+         } catch (Exception e) {
+              session.setAttribute("mensajeError", "Error al actualizar los datos: " +e.getMessage());
+              session.setAttribute("tipoMensaje2", "danger");
+         }
+         
          
          response.sendRedirect("SvOdonto");
         

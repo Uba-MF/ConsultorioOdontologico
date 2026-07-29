@@ -174,6 +174,20 @@
         </div>
     </div>
     </form>
+
+    <script>
+           setTimeout(function() {
+           var alerta = document.getElementById('alertaMensaje');
+              if (alerta) {
+                  alerta.style.transition = "opacity 0.5s ease";
+                  alerta.style.opacity = "0";
+                  setTimeout(function() {
+                      alerta.remove();
+                   }, 500);
+                } 
+           }, 7000);
+    </script>      
+   
  
 </body>
 </<html>

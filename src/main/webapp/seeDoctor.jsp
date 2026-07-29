@@ -4,7 +4,8 @@
 
 <%@include file="components/header.jsp" %>
 <%@include file="components/body.jsp" %>
-
+<%@include file="components/successMessage.jsp" %>
+<%@include file="components/errorMessage.jsp" %>
 
 <body class="bg-gradient-primary">
 
@@ -57,20 +58,29 @@
                                             <td><%=odonto.getTelefono() %></td>
                                             
                                             <td style="display: flex; width: 230px;">
-                                    <form name="eliminar" action="SvDeleteOdonto" method="POST"> <!-- Esto envía el código al servlet -->
-                                        <button type="submit" class="btn btn-primary btn-user btn-block" style="background-color: red; margin-right: 5px;">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
-                                        </button>
-                                        <input type="hidden" name="id" value="<%=odonto.getId()%>">
-                                    </form>
+                                                <form name="eliminar" action="SvDeleteOdonto" method="POST" onsubmit="return confirmarEliminacion()" > <!-- Esto envía el código al servlet -->
+                                                    <button type="submit" class="btn btn-primary btn-user btn-block" style="background-color: red; margin-right: 5px;">
+                                                        <input type="hidden" name ="accion" value="delete">
+                                                        <input type="hidden" name="id" value="<%=odonto.getId()%>">
+                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                    </button>
+                                                </form>
+                                                        
+                                                          <!-- Mensaje de confirmación para eliminar -->
+                                                       <script>
+                                                                function confirmarEliminacion() {
+                                                                    return confirm("¿Estás seguro de eliminar a este usuario?");
+                                                                    }
+                                                        </script>
                                     
                                     
-                                    <form name="editar" action="SvEditOdonto" method="GET"> <!-- Esto envía el código al servlet -->
-                                        <button type="submit" class="btn btn-primary btn-user btn-block" style="margin-left:5px;">
-                                            <i class="fas fa-pencil-alt"></i> Editar
-                                        </button>
-                                        <input type="hidden" name="id" value="<%=odonto.getId()%>">
-                                    </form></td>
+                                                        <form name="editar" action="SvEditOdonto" method="GET"> <!-- Esto envía el código al servlet -->
+                                                            <button type="submit" class="btn btn-primary btn-user btn-block" style="margin-left:5px;">
+                                                                <i class="fas fa-pencil-alt"></i> Editar
+                                                            </button>
+                                                            <input type="hidden" name="id" value="<%=odonto.getId()%>">
+                                                        </form> 
+                                            </td>
                                         </tr>
                                         <% }%>
                                     </tbody>

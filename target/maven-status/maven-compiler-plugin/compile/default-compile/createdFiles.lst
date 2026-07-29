@@ -14,6 +14,7 @@ servlets/SvOdonto.class
 logica/Odontologo.class
 persistencia/OdontologoJpaController.class
 logica/Odontologo_.class
+logica/PasswordHash.class
 persistencia/exceptions/NonexistentEntityException.class
 servlets/SvEditUser.class
 persistencia/TurnoJpaController.class

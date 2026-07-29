@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import logica.Controladora;
 
 
+
 @WebServlet(name = "SvLogin", urlPatterns = {"/SvLogin"})
 public class SvLogin extends HttpServlet {
 
@@ -31,25 +32,30 @@ public class SvLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            // Almacena los datos temporalmente que llegan del login
+ 
+          HttpSession missesion = request.getSession() ;
+          // Almacena los datos temporalmente que llegan del login
             String usuario = request.getParameter("usuario");
             String contrasena = request.getParameter("password");
-            
+
             boolean validacion = false;
-            validacion = control.comprobarIngreso(usuario,contrasena); // Método que realiza la comparación de los datos que recibe con los de la BD
+            // Método que realiza la comparación de los datos que recibe con los de la BD
+            validacion = control.comprobarIngreso(usuario, contrasena); 
             
             if (validacion == true) {
-                HttpSession missesion = request.getSession(true);  // Crea la sesión en caso de que la validación sea true
+                // Crea la sesión en caso de que la validación sea true
+                missesion = request.getSession(true);  
                 missesion.setAttribute("usuario", usuario);
-                response.sendRedirect("index.jsp");
-            }
+                response.sendRedirect("index.jsp");  
+            } 
             
             else {
-                response.sendRedirect("loginError.jsp");
+                  missesion.setAttribute("mensajeError", " ¡Usuario o contraseña incorrectos!");
+                  missesion.setAttribute("tipoMensaje2", "danger");
+                  response.sendRedirect(request.getContextPath() + "/login.jsp"); 
             }
-        
-        
+            
+  
     }
 
  

@@ -1,5 +1,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -35,31 +36,74 @@
                 <div class="card o-hidden border-0 shadow-lg my-5" style="top: 80px;">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
+                        
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block">
                                 <img src="https://www.medmasterassist.com/wp-content/uploads/2023/08/odontologia-medmaster-2.png" alt="alt"  width="110%" height="100%" />
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="p-5">
+                                    
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Iniciar Sesión</h1>
                                     </div>
+                                    
                                     <form class="user" action="SvLogin" method="POST">
-                                        <div class="form-group">
+                                        
+                                        <div class="form-group mt-5">
                                             <input class="form-control form-control-user"
                                                    id="usuario" name="usuario" 
-                                                placeholder="Usuario">
+                                                placeholder="Usuario" required>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="password" name="password" placeholder="Contraseña">
+                                                id="password" name="password" placeholder="Contraseña" required>
                                         </div>
-                          
                                         
-                                        <button class="btn btn-primary btn-user btn-block" type="submit" style="margin-top: 55px"> 
+                                        <button class="btn btn-primary btn-user btn-block mt-0" type="submit" style="margin-top: 55px"> 
                                             Ingresar
-                                        </button>
-                                      
+                                        </button> <br>
+                                        
+                                        <%-- Mensaje de error cuando las contraseñas no coinciden  --%>
+                                         <% 
+                                        String mensajeError = (String) session.getAttribute("mensajeError");
+                                        String tipoMensaje2 = (String) session.getAttribute("tipoMensaje2");
+                                        %>
+         
+                                         <%
+                                                 if (mensajeError != null && !mensajeError.isEmpty()) { 
+                                         %>
+                                  
+                                        <div id="alertaMensaje" class="alert alert-danger <%= tipoMensaje2%>"
+                                             style="position: fixed; top: 64%; left: 67%; transform: translateX(-50%); z-index: 1050; min-width: 300px;">
+                                            <%=mensajeError%>
+                                       </div>
+                                       
+                                          <% 
+                                        session.removeAttribute("mensajeError");
+                                        session.removeAttribute("tipoMensaje2");
+                                           %>
+        
+                                            <%
+                                            }
+                                            %>
+                                        
+                                        <%-- Función para el contenedor del error  --%>
+                                         <script>
+                                                    setTimeout(function() {
+                                                    var alerta = document.getElementById('alertaMensaje');
+                                                    if (alerta) {
+                                                            alerta.style.transition = "opacity 0.5s ease";
+                                                            alerta.style.opacity = "0";
+                                                            setTimeout(function() {
+                                                            alerta.remove();
+                                                            }, 500);
+                                                        }
+                                                    }, 5000); <%-- Establecido para 5 seg  --%>
+                                           </script>      
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -85,3 +129,6 @@
 
     </body>
 </html>
+
+       
+

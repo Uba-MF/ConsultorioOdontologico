@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
     @Entity
     public class Usuario implements Serializable {
             @Id
@@ -57,8 +58,6 @@ import javax.persistence.Id;
     public void setRol(String rol) {
         this.rol = rol;
     }
-            
-            
-              
     
+        
     }

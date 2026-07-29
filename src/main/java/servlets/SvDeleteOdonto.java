@@ -7,8 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import logica.Controladora;
-import logica.Odontologo;
+
 
 
 @WebServlet(name = "SvDeleteOdonto", urlPatterns = {"/SvDeleteOdonto"})
@@ -33,11 +34,24 @@ public class SvDeleteOdonto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-          int id = Integer.parseInt(request.getParameter("id"));
+        String accion = request.getParameter("accion");
+        HttpSession session = request.getSession();
+        
+        if ("delete".equals(accion)) {
+            // Almacena en una variable el id del usuario recibido del JSP
+             int id = Integer.parseInt(request.getParameter("id"));
+             
+             try {
+                  control.borrarOdonto(id);
+                  session.setAttribute("mensaje", " -----> Registro eliminado del sistema correctamente");
+                  session.setAttribute("tipoMensaje", "success");
+             } catch (Exception e) {
+                  session.setAttribute("mensaje", "Error al eliminar el registro: " +e.getMessage());
+                  session.setAttribute("tipoMensaje", "danger");
+             }
+        }
 
-          control.borrarOdonto(id);
-          
-         response.sendRedirect("SvOdonto");
+         response.sendRedirect(request.getContextPath() + "/SvOdonto");
         
     }
 

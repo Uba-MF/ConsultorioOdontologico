@@ -11,11 +11,11 @@ public class Controladora {
     
     ControladoraPersistencia controlPersis = new ControladoraPersistencia();
     
-        public void crearUsuario (String nombreUsuario, String contrasena, String rol) {
+        public void crearUsuario (String nombreUsuario, String encryptedPass, String rol) {
             
                 Usuario usu = new Usuario ();
                 usu.setNombreUsuario(nombreUsuario);
-                usu.setContrasena(contrasena);
+                usu.setContrasena(encryptedPass);
                 usu.setRol(rol);
                 
                 controlPersis.crearUsuario(usu);
@@ -39,6 +39,7 @@ public class Controladora {
     public void editarUsuario(Usuario usu) {
         controlPersis.editarUsuario(usu);
   }
+    
 
     public boolean comprobarIngreso(String usuario, String contrasena) {
         
@@ -51,7 +52,8 @@ public class Controladora {
         // Recorre usuario por usuario y lo compara con el usuario que recibe del login
         for (Usuario usu : listaUsuarios) {
             if(usu.getNombreUsuario().equals(usuario)) {
-                if(usu.getContrasena().equals(contrasena)) {
+                //if(usu.getContrasena().equals(contrasena)) {
+                if(PasswordHash.verification(contrasena, usu.getContrasena())) {
                      ingreso = true;
                 }
                 else {

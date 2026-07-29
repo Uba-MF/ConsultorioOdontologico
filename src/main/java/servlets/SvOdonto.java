@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import logica.Controladora;
 import logica.Odontologo;
+import logica.PasswordHash;
 
 
 @WebServlet(name = "SvOdonto", urlPatterns = {"/SvOdonto"})
@@ -47,6 +48,8 @@ public class SvOdonto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+        HttpSession session = request.getSession();
         // Se almacena en variables los datos que llegan del formulario
         String dni = request.getParameter("dni");
         String nombre = request.getParameter("nombre");
@@ -60,17 +63,34 @@ public class SvOdonto extends HttpServlet {
         String pass = request.getParameter("contrasena");
         String pass2 = request.getParameter("contrasena2");
         
+        
+        
         if (pass.equals(pass2)) {
-               // Los datos pasan a la lógica
-                control.crearOdonto(dni,nombre,apellido,telefono,direccion,fechaNac,especialidad,usuario,pass);
+            
+               String encryptedPass = PasswordHash.encript(pass);
+               
+               try {
+                   // Los datos pasan a la lógica
+                   control.crearOdonto(dni,nombre,apellido,telefono,direccion,fechaNac,especialidad,usuario,encryptedPass);
+                   session.setAttribute("mensaje", " -----> Datos guardados correctamente ");
+                   session.setAttribute("tipoMensaje", "success");
+               }
+               
+               catch (Exception e) {
+                   session.setAttribute("mensajeError", " Ocurrió un error al intentar guardar en la base de datos:<br/>El número de documento o teléfono ya existe en la Base de datos.");
+                   session.setAttribute("tipoMensaje2", "danger");
+               }
+               
         }
         else {
-                // Ventana emergente de error
-                request.setAttribute("mensaje","Las contraseñas no coiciden, Intentelo nuevamente");
-                request.getRequestDispatcher("/newDoctor.jsp").forward(request, response);
+                // Ventana emergente de error para contraseñas incorrectas
+                session.setAttribute("mensajeError", " -----> ¡Las contraseñas no coinciden! ");
+                session.setAttribute("tipoMensaje2", "danger");
+                
         }
         
-        response.sendRedirect("newDoctor.jsp");
+        // Redirige (GET) en vez de forward para evitar reenvío de formulario
+            response.sendRedirect(request.getContextPath() + "/newDoctor.jsp");
         
     }
 

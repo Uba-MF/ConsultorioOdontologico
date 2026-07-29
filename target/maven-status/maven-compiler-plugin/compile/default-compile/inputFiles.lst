@@ -20,6 +20,7 @@
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/logica/Turno.java
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/logica/Odontologo.java
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/servlets/SvUsuarios.java
+/home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/logica/PasswordHash.java
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/persistencia/HorarioJpaController.java
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/servlets/SvOdonto.java
 /home/ubadel/NetBeansProjects/ConsultorioOdontologico/src/main/java/servlets/SvLogin.java
