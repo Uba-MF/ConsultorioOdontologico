@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
     public class Paciente extends Persona implements Serializable {
             
             
-            private boolean tiene_EPS;
+            private String tiene_EPS;
             private String tipoSangre;
             @OneToOne
             private Responsable unResponsable; // Relación UNO a UNO con la tabla Resonsable mediante un objeto.
@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
             public Paciente(){
             }
 
-    public Paciente(boolean tiene_EPS, String tipoSangre, Responsable unResponsable, List<Turno> listaTurnos, int id, String dni, String nombre, String apellido, String telefono, String direccion, Date fecha_nac) {
+    public Paciente(String tiene_EPS, String tipoSangre, Responsable unResponsable, List<Turno> listaTurnos, int id, String dni, String nombre, String apellido, String telefono, String direccion, Date fecha_nac) {
         super(id, dni, nombre, apellido, telefono, direccion, fecha_nac);
         this.tiene_EPS = tiene_EPS;
         this.tipoSangre = tipoSangre;
@@ -30,17 +30,20 @@ import javax.persistence.OneToOne;
         this.listaTurnos = listaTurnos;
     }
 
-  
+ 
 
-
-
-    public boolean isTiene_EPS() {
+    public String isTiene_EPS() {
         return tiene_EPS;
     }
 
-    public void setTiene_EPS(boolean tiene_EPS) {
+    public void setTiene_EPS(String tiene_EPS) {
         this.tiene_EPS = tiene_EPS;
     }
+
+    public String getTiene_EPS() {
+        return tiene_EPS;
+    }
+    
 
     public String getTipoSangre() {
         return tipoSangre;

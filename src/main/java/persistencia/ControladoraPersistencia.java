@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.Odontologo;
+import logica.Paciente;
 import logica.Usuario;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -78,6 +79,14 @@ public class ControladoraPersistencia {
             } catch (Exception ex) {
                 Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
             }
+    }
+
+    public void crearPatient(Paciente patient) {
+          pacienteJPA.create(patient);
+    }
+
+    public List<Paciente> getPacientes() {
+          return pacienteJPA.findPacienteEntities();
     }
 
 

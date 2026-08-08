@@ -32,6 +32,7 @@ public class SvOdonto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Crea una lista con los odontolgos creados
          List<Odontologo> listaOdonto = new ArrayList<Odontologo>();
          
          listaOdonto = control.getOdontologos();

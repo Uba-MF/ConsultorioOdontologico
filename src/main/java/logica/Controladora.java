@@ -71,6 +71,7 @@ public class Controladora {
         usuOdon.setContrasena(pass);
 
         Odontologo odonto = new Odontologo();
+        
         // Recibe la fecha como string del servlet y lo convierte a Date
         LocalDate localDate = LocalDate.parse(fechaNac);
         Date fecha = java.sql.Date.valueOf(localDate);
@@ -102,5 +103,29 @@ public class Controladora {
 
     public void editOdonto(Odontologo odonto) {
         controlPersis.editOdonto(odonto);
+    }
+
+    public void crearPatient(String dni, String nombre, String apellido, String telefono, String direccion, String fechaNac, String eps, String tipo_sangre) {
+        
+            Paciente patient = new Paciente();
+            
+            LocalDate localDate = LocalDate.parse(fechaNac);
+            Date fecha = java.sql.Date.valueOf(localDate);
+            
+            patient.setDni(dni);
+            patient.setNombre(nombre);
+            patient.setApellido(apellido);
+            patient.setTelefono(telefono);
+            patient.setDireccion(direccion);
+            patient.setFecha_nac(fecha);
+            patient.setTiene_EPS(eps);
+            patient.setTipoSangre(tipo_sangre);
+            
+            controlPersis.crearPatient(patient);
+        
+    }
+
+    public List<Paciente> getPacientes() {
+         return  controlPersis.getPacientes();
     }
 }
