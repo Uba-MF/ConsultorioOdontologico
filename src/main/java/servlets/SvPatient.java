@@ -14,6 +14,7 @@ import logica.Controladora;
 import logica.Paciente;
 
 
+
 @WebServlet(name = "SvPatient", urlPatterns = {"/SvPatient"})
 public class SvPatient extends HttpServlet {
 
@@ -29,15 +30,15 @@ public class SvPatient extends HttpServlet {
             throws ServletException, IOException {
          
         // Crea una lista con los pacientes registrados
-         List<Paciente> listaPacientes = new ArrayList<Paciente>();
-         
+         List<Paciente> listaPacientes = new ArrayList<Paciente>(); 
+
          // Consulta a la controladora para que devuelva una lista de pacientes
          listaPacientes = control.getPacientes();
          
          // Se valida que la sea la misma sesión 
          HttpSession session = request.getSession();
          session.setAttribute("listaPacientes", listaPacientes);
-         
+
          // Los datos se muestran en una tabla 
          response.sendRedirect("seePatient.jsp");
         
@@ -59,18 +60,40 @@ public class SvPatient extends HttpServlet {
          String eps = request.getParameter("options_Eps");
          String tipo_sangre = request.getParameter("options_Blood");
          
-         try {
-                control.crearPatient(dni,nombre,apellido,telefono,direccion,fechaNac,eps,tipo_sangre);
-                session.setAttribute("mensaje", " -----> Datos guardados correctamente");
-                session.setAttribute("tipoMensaje", "success");
-         } catch (Exception e ) {
-                session.setAttribute("mensajeError", "Ocurrió un error al guardar el paciente en la base de datos.<br/>"+e.getMessage());
-                session.setAttribute("tipoMensaje2", "danger");
-         }
+         String acom = request.getParameter("options_Acomp");
          
+            if (acom.equals("no")) {
+                 try {
+                       control.crearPatient(dni, nombre, apellido, telefono, direccion, fechaNac, eps, tipo_sangre);
+                       session.setAttribute("mensaje", " -----> ¡Datos guardados correctamente!");
+                       session.setAttribute("tipoMensaje", "success");
+                 } catch (Exception e) {
+                       session.setAttribute("mensajeError", "Ocurrió un error al guardar el paciente en la base de datos.<br/>"+e.getMessage());
+                       session.setAttribute("tipoMensaje2", "danger");
+                 }
+            }
+            
+            else {
+            
+                // Intentando guardar el responsable y hacer la respectiva relación entre ambas tablas
+                String documento = request.getParameter("n_documento");
+                String nombreCompleto = request.getParameter("nombres");
+                String celular = request.getParameter("n_celular");
+                String tipo_relacion = request.getParameter("relation");
+            
+                try {
+                    control.crearPatient(dni, nombre, apellido, telefono, direccion, fechaNac, eps, tipo_sangre, documento, nombreCompleto, celular, tipo_relacion);
+                    session.setAttribute("mensaje", " -----> ¡Datos guardados correctamente!");
+                    session.setAttribute("tipoMensaje", "success");
+                } catch (Exception e) {
+                    session.setAttribute("mensajeError", "Ocurrió un error al guardar el paciente en la base de datos.<br/>" + e.getMessage());
+                    session.setAttribute("tipoMensaje2", "danger");
+                }
+            
+            }
+
          // Redirige (GET) en vez de forward para evitar reenvío de formulario
-         response.sendRedirect(request.getContextPath() + "/newPatient.jsp");
-         
+         response.sendRedirect(request.getContextPath() + "/newPatient.jsp");      
         
     }
 

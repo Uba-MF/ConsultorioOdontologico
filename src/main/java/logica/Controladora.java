@@ -105,7 +105,14 @@ public class Controladora {
         controlPersis.editOdonto(odonto);
     }
 
-    public void crearPatient(String dni, String nombre, String apellido, String telefono, String direccion, String fechaNac, String eps, String tipo_sangre) {
+    public void crearPatient(String dni, String nombre, String apellido, String telefono, String direccion, String fechaNac, String eps, String tipo_sangre, String documento, String nombreCompleto, String celular, String tipo_relacion) {
+        
+            Responsable responsable = new Responsable();
+            
+            responsable.setDni(documento);
+            responsable.setNombre(nombreCompleto);
+            responsable.setTelefono(celular);
+            responsable.setTipo_respon(tipo_relacion);
         
             Paciente patient = new Paciente();
             
@@ -120,12 +127,46 @@ public class Controladora {
             patient.setFecha_nac(fecha);
             patient.setTiene_EPS(eps);
             patient.setTipoSangre(tipo_sangre);
+            patient.setUnResponsable(responsable);
             
-            controlPersis.crearPatient(patient);
+            controlPersis.crearPatient(responsable,patient);
         
     }
 
     public List<Paciente> getPacientes() {
          return  controlPersis.getPacientes();
     }
+
+    public List<Responsable> getResponsables() {
+          return controlPersis.getResponsables();
+    }
+
+    public void crearPatient(String dni, String nombre, String apellido, String telefono, String direccion, String fechaNac, String eps, String tipo_sangre) {
+            
+        Paciente patient = new Paciente();
+        
+         LocalDate date =  LocalDate.parse(fechaNac);
+         Date fecha = java.sql.Date.valueOf(date);
+        
+        patient.setDni(dni);
+        patient.setNombre(nombre);
+        patient.setApellido(apellido);
+        patient.setTelefono(telefono);
+        patient.setDireccion(direccion);
+        patient.setFecha_nac(fecha);
+        patient.setTiene_EPS(eps);
+        patient.setTipoSangre(tipo_sangre);
+        
+        controlPersis.crearPatient(patient);
+        
+    }
+
+    public void borrarPaciente(int id) {
+         controlPersis.borrarPaciente(id);
+    }
+
+    public Paciente traerPacientes(int id) {
+            return controlPersis.traerPacientes(id);
+    }
+
 }

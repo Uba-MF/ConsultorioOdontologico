@@ -28,7 +28,13 @@ import javax.persistence.Entity;
     public void setTipo_respon(String tipo_respon) {
         this.tipo_respon = tipo_respon;
     }
+
+    @Override
+    public String toString() {
+        return "Responsable{" + "tipo_respon=" + tipo_respon + '}';
+    }
             
+    
             
             
     }

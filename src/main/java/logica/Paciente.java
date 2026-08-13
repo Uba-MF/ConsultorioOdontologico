@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
             private String tiene_EPS;
             private String tipoSangre;
             @OneToOne
-            private Responsable unResponsable; // Relación UNO a UNO con la tabla Resonsable mediante un objeto.
+            private Responsable unResponsable; // Relación UNO a UNO con la tabla Responsable mediante un objeto.
             @OneToMany(mappedBy="pacien")
             private List<Turno> listaTurnos; // Relación UNO a MUCHOS con Turnos mediante una collections.
             
@@ -68,6 +68,12 @@ import javax.persistence.OneToOne;
     public void setListaTurnos(List<Turno> listaTurnos) {
         this.listaTurnos = listaTurnos;
     }
+
+    @Override
+    public String toString() {
+        return "Paciente{" + "tiene_EPS=" + tiene_EPS + ", tipoSangre=" + tipoSangre + ", unResponsable=" + unResponsable + ", listaTurnos=" + listaTurnos + '}';
+    }
+    
     
   
     }

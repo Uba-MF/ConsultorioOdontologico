@@ -97,6 +97,12 @@ import javax.persistence.TemporalType;
          public void setFecha_nac(Date fecha_nac) {
                 this.fecha_nac = fecha_nac;
          }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", fecha_nac=" + fecha_nac + '}';
+    }
+         
          
 
     }

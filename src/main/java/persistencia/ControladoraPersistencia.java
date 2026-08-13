@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.Odontologo;
 import logica.Paciente;
+import logica.Responsable;
 import logica.Usuario;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -81,7 +82,12 @@ public class ControladoraPersistencia {
             }
     }
 
-    public void crearPatient(Paciente patient) {
+    public void crearPatient(Responsable responsable , Paciente patient) {
+          
+          // Crear el responsable en la BD
+          responsableJPA.create(responsable);
+        
+          // Crea el paciente con relación de un responsable
           pacienteJPA.create(patient);
     }
 
@@ -89,6 +95,26 @@ public class ControladoraPersistencia {
           return pacienteJPA.findPacienteEntities();
     }
 
+    public List<Responsable> getResponsables() {
+          return responsableJPA.findResponsableEntities();
+    }
+
+    public void crearPatient(Paciente patient) {
+         // Crear paciente sin relación con un responsable
+         pacienteJPA.create(patient);
+    }
+
+    public void borrarPaciente(int id) {
+            try {
+                pacienteJPA.destroy(id);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+
+    public Paciente traerPacientes(int id) {
+            return pacienteJPA.findPaciente(id);
+    }
 
     
 }

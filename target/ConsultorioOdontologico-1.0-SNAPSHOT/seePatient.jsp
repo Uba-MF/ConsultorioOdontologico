@@ -1,3 +1,4 @@
+<%@page import="logica.Responsable"%>
 <%@page import="logica.Paciente"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,14 +25,15 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Pacientes </h1>
-                    <p class="mb-4">Pacientes registrados en el sistema.</p>
+                    <a href="index.jsp" class="btn btn-user btn-danger mb-2" type="submit" style="margin-top: 10px;">Atrás</a>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+                         
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Registro de Pacientes en el sistema</h6>
-                        </div>
+                             <h4 class="m-0 font-weight-bold text-primary text-center">Registro de Pacientes en el sistema </h4>
+                        </div>  
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -42,7 +44,8 @@
                                             <th>Telefono</th>
                                             <th>EPS</th>
                                             <th>Tipo Sangre</th>
-                                            <th style="width: 210px">Acción</th>
+                                            <th>Acompañante</th>
+                                            <th style="width: 100px">Acción</th>
                                         </tr>
                                     </thead>
                                     
@@ -51,7 +54,7 @@
                                     %>
                                     
                                     <tbody>
-                                        <% for (Paciente patient : listaPacientes){ %>
+                                        <% for (Paciente patient : listaPacientes){   %>
                                         <tr>
                                              <td><%= patient.getDni()%></td>
                                             <td><%= patient.getNombre() +" " + patient.getApellido()  %></td>
@@ -59,12 +62,19 @@
                                             <td><%=patient.getTiene_EPS()%></td>
                                             <td><%=patient.getTipoSangre()%></td>
                                             
-                                            <td style="display: flex; width: 230px;">
-                                                <form name="eliminar" action="SvDeleteOdonto" method="POST" onsubmit="return confirmarEliminacion()" > <!-- Esto envía el código al servlet -->
-                                                    <button type="submit" class="btn btn-primary btn-user btn-block" style="background-color: red; margin-right: 5px;">
+                                            
+                                            <td>
+                                                <%=patient.getUnResponsable() !=null ? patient.getUnResponsable().getNombre() : "Sin acompañante<br/>" %>
+                                                <%=patient.getUnResponsable() !=null ?  patient.getUnResponsable().getTelefono(): " " %>
+                                            </td>
+                                            
+                                   
+                                            <td style="display: flex; width: 120px;">
+                                                <form name="eliminar" action="SvDeletePatient" method="POST" onsubmit="return confirmarEliminacion()" > <!-- Esto envía el código al servlet -->
+                                                    <button type="submit" class="btn btn-primary btn-user btn-block" style="background-color: tomato; margin-right: 5px;">
                                                         <input type="hidden" name ="accion" value="delete">
                                                         <input type="hidden" name="id" value="<%=patient.getId()%>">
-                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                        <i class="fas fa-trash-alt"></i> 
                                                     </button>
                                                 </form>
                                                         
@@ -76,15 +86,15 @@
                                                         </script>
                                     
                                     
-                                                        <form name="editar" action="SvEditOdonto" method="GET"> <!-- Esto envía el código al servlet -->
-                                                            <button type="submit" class="btn btn-primary btn-user btn-block" style="margin-left:5px;">
-                                                                <i class="fas fa-pencil-alt"></i> Editar
+                                                        <form name="editar" action="SvEditPatient" method="GET"> <!-- Esto envía el código al servlet -->
+                                                            <button type="submit" class="btn btn-primary btn-user btn-block" style="background-color: royalblue; margin-left:5px;">
+                                                                <i class="fas fa-pencil-alt"></i> 
                                                             </button>
                                                             <input type="hidden" name="id" value="<%=patient.getId()%>">
                                                         </form> 
                                             </td>
                                         </tr>
-                                        <% }%>
+                                        <% }%>     
                                     </tbody>
                                 </table>
                             </div>

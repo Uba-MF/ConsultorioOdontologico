@@ -122,10 +122,10 @@
                                         <label for="lang">Parentesco o Relación:</label>
                                         <select id="lang" name="relation" disabled required>
                                             <option value="" disabled selected>Escoja una opción</option>
-                                            <option value="padres">Madre / Padre</option>
-                                            <option value="esposos">Esposo / (a)</option>
-                                            <option value="amigos">Amigo / (a)</option>
-                                            <option value="otro">Familiar</option>  
+                                            <option value="Madre/Padre">Madre / Padre</option>
+                                            <option value="Esposo/a">Esposo / (a)</option>
+                                            <option value="Amigo/a">Amigo / (a)</option>
+                                            <option value="Familiar">Familiar</option>  
                                         </select>
                                     </div>
                                         
